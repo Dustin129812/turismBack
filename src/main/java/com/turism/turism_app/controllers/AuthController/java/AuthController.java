@@ -5,6 +5,7 @@ import com.turism.turism_app.models.entities.Users;
 import com.turism.turism_app.repositories.UserRepository;
 import com.turism.turism_app.security.JwtUtils.java.JwtUtils;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,6 +29,10 @@ public class AuthController {
         this.userRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
     }
+    @GetMapping("/test")
+public ResponseEntity<String> testConnection() {
+    return ResponseEntity.ok("Conexión exitosa con el backend 🚀");
+}
 
     @PostMapping("/register")
     public Users register(@RequestBody Users user) {
