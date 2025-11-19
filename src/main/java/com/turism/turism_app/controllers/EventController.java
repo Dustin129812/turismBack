@@ -1,5 +1,6 @@
 package com.turism.turism_app.controllers;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.turism.turism_app.dto.EventDTO;
 import com.turism.turism_app.models.entities.Events;
+import com.turism.turism_app.models.entities.Locations;
 import com.turism.turism_app.services.EventServiceImpl;
+import com.turism.turism_app.services.LocationServiceImpl;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +29,8 @@ public class EventController {
 
     @Autowired
     EventServiceImpl eventServiceImpl;
+    @Autowired
+    private LocationServiceImpl locationServiceImpl;
 
     @GetMapping("/list")
     public List<Events>list () {
@@ -31,10 +38,24 @@ public class EventController {
     }
 
     @PostMapping("/add")
-    public Events save(@RequestBody Events event) {
-        
-        return eventServiceImpl.save(event);
-    }
+    public Events save(@RequestBody EventDTO dto) {
+
+    // 1. Buscar la locación por ID
+        Locations location = locationServiceImpl
+                .findById(dto.getLocationId())
+                .orElseThrow(() -> new RuntimeException("Location no encontrada"));
+    // 2. Crear un evento nuevo
+        Events event = new Events();
+        event.setLocation(location);
+        event.setDescription(dto.getDescription());
+        event.setStartHour(dto.getStartHour());
+        event.setEndHour(dto.getEndHour());
+        event.setPhotoPath(dto.getPhotoPath());
+    // convertir String → Timestamp
+        event.setDate(Timestamp.valueOf(dto.getDate() + " 00:00:00"));
+    // 3. Guardar
+    return eventServiceImpl.save(event);
+}
 
     @PostMapping("/delete/{id}")
     public void remove(@PathVariable Long id) {

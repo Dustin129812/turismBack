@@ -17,6 +17,17 @@ public class UserEvents {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
+    
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    private Events event;
+
+
+    public UserEvents(Long id, Users user, Events event) {
+        this.id = id;
+        this.user = user;
+        this.event = event;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -30,9 +41,6 @@ public class UserEvents {
         this.event = event;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "event_id")
-    private Events event;
 
     public UserEvents() {
     }

@@ -45,6 +45,11 @@ public class LocationServiceImpl implements LocationService{
         });
     }
 
+    @Override
+    public Optional<Locations> findById(Long id) {
+        return locationRepository.findById(id);
+    }
+
     
 
 }

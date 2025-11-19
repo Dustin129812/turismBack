@@ -30,6 +30,16 @@ public class Events {
     
     private String endHour;
 
+    private String photoPath;
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
     @OneToMany(mappedBy = "event")
     private List<UserEvents> userEvents;
 

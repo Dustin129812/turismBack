@@ -1,6 +1,9 @@
 package com.turism.turism_app.models.entities;
 
+import java.time.LocalDate;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -25,7 +28,8 @@ public class Users {
 
     private String country;
 
-    private String birthDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthDate;
 
     private String phone;
 
@@ -53,7 +57,7 @@ public class Users {
     public void setCountry(String country) {
         this.country = country;
     }
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
     public void setPhone(String phone) {
@@ -75,7 +79,7 @@ public class Users {
     public String getCountry() {
         return country;
     }
-    public String getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
     public String getPhone() {

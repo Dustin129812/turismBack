@@ -15,4 +15,6 @@ public interface EventService {
 
     Optional<Events> update(Events event ,Long id);
 
+    Optional<Events>findById(Long id);
+
 }

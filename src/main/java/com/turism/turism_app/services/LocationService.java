@@ -15,4 +15,6 @@ public interface LocationService {
 
     Optional<Locations> update(Locations location,Long id);
 
+    Optional<Locations> findById(Long id);
+
 }
