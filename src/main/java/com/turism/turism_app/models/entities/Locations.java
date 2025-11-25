@@ -2,6 +2,7 @@ package com.turism.turism_app.models.entities;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,7 +22,7 @@ public class Locations {
 
     private Double latitude;
 
-    @OneToMany(mappedBy = "location")
+    @OneToMany(mappedBy = "location",cascade = CascadeType.REMOVE)
     private List<Events> events;
 
     public Locations() {

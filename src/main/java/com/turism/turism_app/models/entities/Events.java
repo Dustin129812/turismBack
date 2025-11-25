@@ -3,6 +3,7 @@ package com.turism.turism_app.models.entities;
 import java.sql.Timestamp;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,7 +41,7 @@ public class Events {
         this.photoPath = photoPath;
     }
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event" , cascade = CascadeType.REMOVE)
     private List<UserEvents> userEvents;
 
     public Events() {
