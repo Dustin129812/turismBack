@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,15 +38,15 @@ public class LocationController {
         return locationServiceImpl.save(location);
     }
     
-    @PostMapping("/delete/{id}")
-    public void remove(@RequestBody Long id) {
+    @DeleteMapping("/delete/{id}")
+    public void remove(@PathVariable Long id) {
         locationServiceImpl.remove(id);
     }
 
-    @PutMapping("update/{id}")
-    public Optional<Locations> update(@PathVariable Long id, @RequestBody Locations location) {
+    @PutMapping("/update")
+    public Optional<Locations> update(@RequestBody Locations location) {
     
-        return locationServiceImpl.update(location, id);
+        return locationServiceImpl.update(location);
 
     }
     

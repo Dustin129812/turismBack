@@ -44,13 +44,36 @@ public class EventController {
         Locations location = locationServiceImpl
                 .findById(dto.getLocationId())
                 .orElseThrow(() -> new RuntimeException("Location no encontrada"));
+    String filePath = null;
+
+    if (dto.getPhotoPath() != null && dto.getPhotoPath().startsWith("data:image")) {
+
+        try {
+            // quitar encabezado data:image/jpeg;base64,
+            String base64Image = dto.getPhotoPath().split(",")[1];
+
+            byte[] imageBytes = java.util.Base64.getDecoder().decode(base64Image);
+
+            String fileName = "event_" + System.currentTimeMillis() + ".jpg";
+
+            String uploadDir = "uploads/";
+            java.nio.file.Path path = java.nio.file.Paths.get(uploadDir + fileName);
+
+            java.nio.file.Files.write(path, imageBytes);
+
+            filePath = uploadDir + fileName; 
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al guardar imagen: " + e.getMessage());
+        }
+    }
     // 2. Crear un evento nuevo
         Events event = new Events();
         event.setLocation(location);
         event.setDescription(dto.getDescription());
         event.setStartHour(dto.getStartHour());
         event.setEndHour(dto.getEndHour());
-        event.setPhotoPath(dto.getPhotoPath());
+        event.setPhotoPath(filePath);
     // convertir String → Timestamp
         event.setDate(Timestamp.valueOf(dto.getDate() + " 00:00:00"));
     // 3. Guardar

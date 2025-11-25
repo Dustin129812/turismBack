@@ -38,6 +38,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
             .and()
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/uploads/**").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

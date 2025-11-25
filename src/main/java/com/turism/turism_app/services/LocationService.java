@@ -13,7 +13,7 @@ public interface LocationService {
 
     void remove(Long id);
 
-    Optional<Locations> update(Locations location,Long id);
+    Optional<Locations> update(Locations location);
 
     Optional<Locations> findById(Long id);
 

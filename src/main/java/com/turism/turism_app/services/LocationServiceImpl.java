@@ -33,9 +33,9 @@ public class LocationServiceImpl implements LocationService{
     }
 
     @Override
-    public Optional<Locations> update(Locations location, Long id) {
+    public Optional<Locations> update(Locations location) {
         
-        return locationRepository.findById(id).map(exist->{
+        return locationRepository.findById(location.getId()).map(exist->{
             exist.setLatitude(location.getLatitude());
             exist.setLongitude(location.getLongitude());
             exist.setName(location.getName());
